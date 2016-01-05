@@ -12,12 +12,15 @@
 #include <cxcore.h>
 #include <highgui.h>
 
+#ifndef _MSC_VER
 #include <gdk/gdk.h>
 #include <gtk/gtk.h>
+#endif
 
 #include <errno.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdarg.h>
 
 
 /*************************** Function Definitions ****************************/
@@ -278,15 +281,22 @@ extern IplImage* stack_imgs( IplImage* img1, IplImage* img2 )
 void display_big_img( IplImage* img, char* title )
 {
   IplImage* small;
+#ifndef _MSC_VER
   GdkScreen* scr;
+#endif
   int scr_width, scr_height;
   double img_aspect, scr_aspect, scale;
 
   /* determine screen size to see if image fits on screen */
+#ifdef _MSC_VER
+  scr_width = 1024;
+  scr_height = 768;
+#else
   gdk_init( NULL, NULL );
   scr = gdk_screen_get_default();
   scr_width = gdk_screen_get_width( scr );
   scr_height = gdk_screen_get_height( scr );
+#endif
 
   if( img->width >= 0.90 * scr_width  ||  img->height >= 0.90 * scr_height )
     {

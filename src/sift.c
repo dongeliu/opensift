@@ -241,9 +241,10 @@ static IplImage*** build_gauss_pyr( IplImage* base, int octvs,
 {
   IplImage*** gauss_pyr;
   const int _intvls = intvls;
-  double sig[_intvls+3], sig_total, sig_prev, k;
+  double *sig, k;
   int i, o;
 
+  sig = (double *)malloc((_intvls + 3) * sizeof(double));
   gauss_pyr = calloc( octvs, sizeof( IplImage** ) );
   for( i = 0; i < octvs; i++ )
     gauss_pyr[i] = calloc( intvls + 3, sizeof( IplImage *) );
@@ -283,6 +284,7 @@ static IplImage*** build_gauss_pyr( IplImage* base, int octvs,
 	  }
       }
 
+  free(sig);
   return gauss_pyr;
 }
 

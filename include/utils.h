@@ -12,7 +12,9 @@
 #include "cxcore.h"
 
 #include <stdio.h>
+#ifndef _MSC_VER
 #include <dirent.h>
+#endif
 
 
 /* absolute value */

@@ -6,6 +6,10 @@
   @version 1.1.2-20100521
 */
 
+#ifdef _MSC_VER
+#define _USE_MATH_DEFINES
+#include <math.h>
+#endif
 #include "utils.h"
 #include "imgfeatures.h"
 
